@@ -1,0 +1,18 @@
+f[x_] := Floor[2^(30403243784/10^9 - x^2)]/10^9;
+x1 = -1;
+x2 = -1;
+i = 0;
+While[i < 1000000000000,
+  x1 = f[x1];
+  x2 = f[f[x2]];
+  i++;
+  If[x1 == x2, Break[]]
+  ];
+
+remainder = Mod[1000000000000 - i, i];
+While[remainder > 0,
+  x1 = f[x1];
+  remainder--;
+  ];
+answer = x1 + f[x1];
+N[Floor[answer*10^9]/10^9, Floor[Log[10, answer]] + 1 + 9]
