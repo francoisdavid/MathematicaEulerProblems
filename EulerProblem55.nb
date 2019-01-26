@@ -1,0 +1,16 @@
+isPalind[x_] := (
+   If[IntegerDigits[x] == Reverse[IntegerDigits[x]],
+    True,
+     False
+    ]
+   );
+rev[x_] := FromDigits[Reverse[IntegerDigits[x]]];
+lynchrel[x_] := lynchrel[x, 49];
+lynchrel[_, 0] := True;
+lynchrel[x_, i_] := (
+   If[lynchrel[x + rev[x], i - 1] && ! isPalind[x + rev[x]],
+    	True,
+             False
+    ]
+   );
+Answer = Length[Select[Range[9999], lynchrel]]
